@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 3.74.0"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 3.1.0"
+    }
   }
 }
 
@@ -137,11 +141,16 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = file(var.ssh_public_key_path)
+    public_key = tls_private_key.ssh_key.public_key_openssh
   }
 
   tags = {
     environment = "Development"
     managed_by  = "terraform"
   }
+}
+
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
 }
