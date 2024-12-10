@@ -1,0 +1,9 @@
+variable "vm_name" {}
+variable "location" {}
+variable "resource_group_name" {}
+variable "vm_size" {}
+variable "admin_username" {}
+variable "ssh_public_key_path" {}
+variable "os_offer" {}
+variable "os_sku" {}
+variable "os_version" {}
