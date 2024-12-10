@@ -1,0 +1,10 @@
+{
+  "ref": "feature-ubuntu-2204-gnome-desktop-rdp-ansible",
+  "inputs": {
+    "runner": "ubuntu-latest",
+    "playbook": "set-up-ubuntu2204-gnome-desktop-rdp.yaml",
+    "inventory": "inventory.ini",
+    "terraform-output-directory": "terraform/ubuntu-2204-jammy-desktop-rdp-vm",
+    "nsg-ssh-port": 22
+  }
+}
