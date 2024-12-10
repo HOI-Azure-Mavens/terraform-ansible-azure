@@ -1,13 +1,24 @@
 variable "project_name" {
-  description = "Project name used for resource naming conventions"
+  description = "Project name for resource naming"
   type        = string
-  default     = "ubuntu-2204-jammy-desktop-rdp-vm"
 }
 
 variable "location" {
-  description = "Azure Region for resource deployment"
+  description = "Azure Region"
   type        = string
-  default     = "East US" # You can change this based on your preferred region
+  default     = "East US"
+}
+
+variable "primary_vm_size" {
+  description = "Primary VM size to be used"
+  type        = string
+  default     = "Standard_D2s_v3"
+}
+
+variable "fallback_vm_sizes" {
+  description = "List of fallback VM sizes in case the primary is not available"
+  type        = list(string)
+  default     = ["Standard_D2s_v4", "Standard_D2s_v5", "Standard_B2s"]
 }
 
 variable "admin_username" {
@@ -17,20 +28,19 @@ variable "admin_username" {
 }
 
 variable "ssh_public_key_path" {
-  description = "Path to the SSH public key for VM access"
+  description = "Path to the SSH public key"
   type        = string
-  default     = "~/.ssh/id_rsa.pub" # Ensure this file exists before deployment
+  default     = "~/.ssh/id_rsa.pub"
 }
 
-# Optional variables for advanced customization
-variable "vnet_address_space" {
-  description = "Address space for the virtual network"
-  type        = list(string)
-  default     = ["10.0.0.0/16"]
+variable "subscription_id" {
+  description = "The subscription ID for the Azure account."
+  type        = string
+  default     = null
 }
 
-variable "subnet_address_prefix" {
-  description = "Address prefix for the subnet"
+variable "locations" {
+  description = "List of Azure regions"
   type        = list(string)
-  default     = ["10.0.1.0/24"]
 }
+
