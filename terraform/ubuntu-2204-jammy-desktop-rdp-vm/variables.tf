@@ -1,5 +1,5 @@
 variable "project_name" {
-  description = "Project name for resource naming"
+  description = "The name of the project"
   type        = string
 }
 
@@ -22,7 +22,7 @@ variable "fallback_vm_sizes" {
 }
 
 variable "admin_username" {
-  description = "Admin username for the VM"
+  description = "The admin username for the VM"
   type        = string
   default     = "adminuser"
 }
@@ -34,13 +34,23 @@ variable "ssh_public_key_path" {
 }
 
 variable "subscription_id" {
-  description = "The subscription ID for the Azure account."
+  description = "The subscription ID for Azure"
   type        = string
   default     = null
 }
 
 variable "locations" {
-  description = "List of Azure regions"
+  description = "The list of locations for the resources"
   type        = list(string)
+}
+
+variable "vm_name" {
+  description = "The name of the Virtual Machine"
+  type        = string
+}
+
+variable "vm_size" {
+  description = "The size of the Virtual Machine"
+  type        = string
 }
 

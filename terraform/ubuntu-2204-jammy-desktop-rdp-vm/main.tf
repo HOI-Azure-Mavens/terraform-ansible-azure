@@ -17,15 +17,12 @@ provider "azurerm" {
 }
 
 locals {
-  all_vm_sizes = concat([var.primary_vm_size], var.fallback_vm_sizes)
-  vm_size = coalesce(
-    try(var.primary_vm_size, null),
-    try(var.fallback_vm_sizes[0], null),
-    try(var.fallback_vm_sizes[1], null),
-    try(var.fallback_vm_sizes[2], null),
-    "Standard_B2s"
-  )
   selected_location = element(var.locations, 0)
+}
+
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
 }
 
 resource "azurerm_resource_group" "vm_rg" {
@@ -116,11 +113,15 @@ resource "azurerm_network_interface_security_group_association" "vm_nic_nsg" {
   network_security_group_id = azurerm_network_security_group.vm_nsg.id
 }
 
+resource "random_id" "vm_id" {
+  byte_length = 4
+}
+
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "${var.project_name}-vm"
+  name                = "${var.vm_name}-${random_id.vm_id.hex}"
   location            = azurerm_resource_group.vm_rg.location
   resource_group_name = azurerm_resource_group.vm_rg.name
-  size                = local.vm_size
+  size                = var.vm_size
   admin_username      = var.admin_username
 
   network_interface_ids = [
@@ -148,9 +149,4 @@ resource "azurerm_linux_virtual_machine" "vm" {
     environment = "Development"
     managed_by  = "terraform"
   }
-}
-
-resource "tls_private_key" "ssh_key" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
 }
