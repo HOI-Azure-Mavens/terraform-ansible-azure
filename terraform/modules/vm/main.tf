@@ -23,7 +23,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   source_image_reference {
-    publisher = "Canonical"
+    publisher = "Canonical"  # Change this if you need a different publisher, e.g., "RedHat"
     offer     = var.os_offer
     sku       = var.os_sku
     version   = var.os_version
@@ -59,3 +59,4 @@ resource "azurerm_virtual_network" "vm_vnet" {
   resource_group_name = var.resource_group_name
   address_space       = ["10.0.0.0/16"]
 }
+
