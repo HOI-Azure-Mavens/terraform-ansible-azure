@@ -1,42 +1,20 @@
-variable "sql_server_name" {
-  description = "The name of the SQL Server."
+variable "server_id" {
+  description = "The resource ID of the SQL Server."
   type        = string
 }
 
 variable "database_name" {
-  description = "The name of the SQL Database."
+  description = "The name of the database to create."
   type        = string
-}
-
-variable "resource_group_name" {
-  description = "The name of the resource group."
-  type        = string
-}
-
-variable "location" {
-  description = "The Azure region for the resources."
-  type        = string
-}
-
-variable "admin_username" {
-  description = "The administrator username for the SQL Server."
-  type        = string
-}
-
-variable "admin_password" {
-  description = "The administrator password for the SQL Server."
-  type        = string
-  sensitive   = true
 }
 
 variable "sku_name" {
-  description = "The pricing tier for the SQL Database."
+  description = "The pricing tier (SKU) for the database."
   type        = string
-  default     = "Basic"
 }
 
 variable "collation" {
-  description = "The collation for the SQL Database."
+  description = "The collation setting for the database."
   type        = string
   default     = "SQL_Latin1_General_CP1_CI_AS"
 }
@@ -48,10 +26,11 @@ variable "max_size_gb" {
 }
 
 variable "tags" {
-  description = "Tags to be applied to the resources."
+  description = "A map of tags to assign to the database."
   type        = map(string)
   default     = {}
 }
+
 
 
 
