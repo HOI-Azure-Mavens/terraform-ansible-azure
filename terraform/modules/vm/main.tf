@@ -1,17 +1,12 @@
-variable "vm_name" {}
-variable "location" {}
-variable "resource_group_name" {}
-variable "vm_size" {}
-variable "admin_username" {}
-variable "ssh_public_key_path" {}
-variable "os_offer" {}
-variable "os_sku" {}
-variable "os_version" {}
+resource "azurerm_resource_group" "vm_rg" {
+  name     = "${var.vm_name}-rg"
+  location = var.location
+}
 
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = var.vm_name
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.vm_rg.name
   size                = var.vm_size
   admin_username      = var.admin_username
 
@@ -38,17 +33,26 @@ resource "azurerm_linux_virtual_machine" "vm" {
 resource "azurerm_network_interface" "vm_nic" {
   name                = "${var.vm_name}-nic"
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.vm_rg.name
   ip_configuration {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.vm_subnet.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.vm_pip.id
   }
+}
+
+resource "azurerm_public_ip" "vm_pip" {
+  name                = "${var.vm_name}-pip"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.vm_rg.name
+  allocation_method   = "Static" # Fixed to Static for Standard SKU
+  sku                 = "Standard" # Ensure this matches the SKU in use
 }
 
 resource "azurerm_subnet" "vm_subnet" {
   name                 = "${var.vm_name}-subnet"
-  resource_group_name  = var.resource_group_name
+  resource_group_name  = azurerm_resource_group.vm_rg.name
   virtual_network_name = "${var.vm_name}-vnet"
   address_prefixes     = ["10.0.1.0/24"]
 }
