@@ -1,26 +1,26 @@
 variable "vm_name" {
-  description = "Name of the virtual machine"
+  description = "Name of the Virtual Machine"
   type        = string
 }
 
 variable "location" {
-  description = "Azure region for the virtual machine"
+  description = "Azure region where resources will be created"
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "Resource group name for the virtual machine"
+  description = "Name of the Resource Group"
   type        = string
 }
 
 variable "vm_size" {
-  description = "Size of the virtual machine"
+  description = "Size of the Virtual Machine"
   type        = string
-  default     = "Standard_B2s"
+  default     = "Standard_D2s_v3"
 }
 
 variable "admin_username" {
-  description = "Admin username for the virtual machine"
+  description = "Admin username for the Virtual Machine"
   type        = string
 }
 
@@ -30,20 +30,18 @@ variable "ssh_public_key_path" {
 }
 
 variable "os_offer" {
-  description = "Operating system offer (e.g., UbuntuServer)"
+  description = "OS offer for the Virtual Machine"
   type        = string
-  default     = "UbuntuServer"
 }
 
 variable "os_sku" {
-  description = "Operating system SKU (e.g., 22.04-LTS)"
+  description = "OS SKU for the Virtual Machine"
   type        = string
-  default     = "22.04-LTS"
 }
 
 variable "os_version" {
-  description = "Operating system version (e.g., latest)"
+  description = "OS version for the Virtual Machine"
   type        = string
-  default     = "latest"
 }
+
 
