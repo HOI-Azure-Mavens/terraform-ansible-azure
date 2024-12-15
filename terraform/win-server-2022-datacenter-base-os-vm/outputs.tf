@@ -28,4 +28,15 @@ output "subnet_name" {
   description = "The name of the subnet."
 }
 
+output "admin_username" {
+  value       = var.admin_username
+  description = "The admin username for the Windows VM."
+}
+
+output "admin_password" {
+  value       = var.admin_password
+  sensitive   = true
+  description = "The admin password for the Windows VM."
+}
+
 
