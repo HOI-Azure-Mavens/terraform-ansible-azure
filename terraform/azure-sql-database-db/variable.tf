@@ -1,13 +1,3 @@
-variable "sql_server_name" {
-  description = "The name of the SQL Server."
-  type        = string
-}
-
-variable "database_name" {
-  description = "The name of the SQL Database."
-  type        = string
-}
-
 variable "resource_group_name" {
   description = "The name of the resource group."
   type        = string
@@ -15,6 +5,11 @@ variable "resource_group_name" {
 
 variable "location" {
   description = "The Azure region for the resources."
+  type        = string
+}
+
+variable "sql_server_name" {
+  description = "The name of the SQL Server."
   type        = string
 }
 
@@ -27,6 +22,11 @@ variable "admin_password" {
   description = "The administrator password for the SQL Server."
   type        = string
   sensitive   = true
+}
+
+variable "database_name" {
+  description = "The name of the SQL Database."
+  type        = string
 }
 
 variable "sku_name" {
@@ -52,6 +52,7 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
 
 
 
