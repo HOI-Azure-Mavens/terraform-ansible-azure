@@ -23,11 +23,6 @@ variable "admin_username" {
   default     = "azureuser"
 }
 
-variable "ssh_public_key_path" {
-  description = "The path to the SSH public key."
-  default     = "~/.ssh/id_rsa.pub"
-}
-
 variable "os_offer" {
   description = "The offer of the OS image."
   default     = "rhel"
@@ -42,3 +37,4 @@ variable "os_version" {
   description = "The version of the OS image."
   default     = "latest"
 }
+
