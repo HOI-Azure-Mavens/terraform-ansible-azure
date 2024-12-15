@@ -41,3 +41,6 @@ terraform.rc
 pluralith.yml
 __azurite_db_blob__.json
 __azurite_db_blob_extent__.json
+terraform.tfstate
+terraform.tfstate.backup
+*.pem
