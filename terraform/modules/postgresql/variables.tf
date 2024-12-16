@@ -4,12 +4,12 @@ variable "server_name" {
 }
 
 variable "location" {
-  description = "Location of the resources"
+  description = "Location of the PostgreSQL server"
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "Name of the resource group"
+  description = "Name of the resource group for the PostgreSQL server"
   type        = string
 }
 
@@ -30,9 +30,9 @@ variable "database_name" {
 }
 
 variable "sku_name" {
-  description = "SKU name for the PostgreSQL server"
+  description = "The SKU name for the PostgreSQL server"
   type        = string
-  default     = "GP_Standard_D2s_v3"
+  default     = "GP_Standard_D2s_v3" # Ensure this matches the main.tf SKU
 }
 
 variable "postgresql_version" {
@@ -42,25 +42,24 @@ variable "postgresql_version" {
 }
 
 variable "storage_mb" {
-  description = "Storage size in MB"
+  description = "Storage size in MB for PostgreSQL server"
   type        = number
   default     = 32768
 }
 
 variable "collation" {
-  description = "Collation for the PostgreSQL database"
+  description = "Collation for PostgreSQL database"
   type        = string
   default     = "C"
 }
 
 variable "tags" {
-  description = "Tags for the resources"
+  description = "Tags for the PostgreSQL resources"
   type        = map(string)
-  default = {
-    environment = "production"
-    project     = "hoi-project"
-  }
+  default     = {}
 }
+
+
 
 
 

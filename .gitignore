@@ -39,3 +39,5 @@ terraform.rc
 
 .pluralith/
 pluralith.yml
+*.tfstate
+*.tfplan

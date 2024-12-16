@@ -1,5 +1,9 @@
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
   subscription_id = "1001490f-c77c-403e-be9e-97eac578d1d6"
 }
 
@@ -22,6 +26,11 @@ module "postgresql" {
   collation           = var.collation
   tags                = var.tags
 }
+
+
+
+
+
 
 
 
