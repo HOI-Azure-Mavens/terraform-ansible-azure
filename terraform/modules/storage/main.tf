@@ -1,4 +1,5 @@
-resource "azurerm_storage_account" "storage" {
+# Create an Azure Storage Account
+resource "azurerm_storage_account" "storage_account" {
   name                     = var.storage_account_name
   resource_group_name      = var.resource_group_name
   location                 = var.location
@@ -7,3 +8,5 @@ resource "azurerm_storage_account" "storage" {
 
   tags = var.tags
 }
+
+
