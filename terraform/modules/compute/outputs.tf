@@ -1,14 +1,14 @@
 output "vm_id" {
-  description = "The ID of the Virtual Machine"
-  value       = module.compute.vm_id
+  description = "ID of the virtual machine"
+  value       = azurerm_linux_virtual_machine.this.id
 }
 
-output "vm_private_ip" {
-  description = "The private IP address of the VM"
-  value       = module.compute.vm_private_ip
+output "public_ip" {
+  description = "Public IP of the virtual machine"
+  value       = azurerm_linux_virtual_machine.this.public_ip_address
 }
 
-output "vm_public_ip" {
-  description = "The public IP address of the VM"
-  value       = module.compute.vm_public_ip
+output "network_interface_id" {
+  description = "ID of the network interface"
+  value       = azurerm_network_interface.example_nic["nic1"].id
 }

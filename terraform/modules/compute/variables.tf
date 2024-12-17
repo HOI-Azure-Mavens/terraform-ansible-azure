@@ -1,52 +1,42 @@
-variable "vm_name" {
-  description = "The name of the Virtual Machine"
+variable "resource_group_name" {
+  description = "Resource group name"
   type        = string
 }
 
 variable "location" {
-  description = "The Azure region"
+  description = "Location of the resources"
   type        = string
 }
 
-variable "resource_group_name" {
-  description = "The Resource Group where the VM will be deployed"
+variable "vm_name" {
+  description = "Name of the virtual machine"
   type        = string
 }
 
-variable "zone" {
-  description = "The availability zone to deploy the VM"
+variable "size" {
+  description = "Size of the virtual machine"
   type        = string
 }
 
-variable "nic_name" {
-  description = "The name of the Network Interface"
+variable "network_interfaces" {
+  description = "Network interfaces configuration"
+  type        = map(any)
+}
+
+variable "admin_ssh_key" {
+  description = "Public SSH key for admin user"
   type        = string
 }
 
-variable "subnet_id" {
-  description = "The subnet resource ID"
-  type        = string
-}
-
-variable "vm_size" {
-  description = "The size of the Virtual Machine"
-  type        = string
-  default     = "Standard_DS1_v2"
+variable "source_image_reference" {
+  description = "Source image reference"
+  type        = map(string)
 }
 
 variable "admin_username" {
-  description = "Admin username for the VM"
+  description = "Username for the VM administrator"
   type        = string
-  default     = "azureuser"
+  default     = "adminuser"
 }
 
-variable "ssh_public_key" {
-  description = "SSH public key for VM access"
-  type        = string
-}
 
-variable "tags" {
-  description = "Tags to apply to the VM"
-  type        = map(string)
-  default     = {}
-}

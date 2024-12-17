@@ -1,30 +1,55 @@
-module "compute" {
-  source  = "Azure/avm-res-compute-virtualmachine/azurerm"
-  version = "4.0.0" # Always check for the latest version
-
-  # Required variables
-  name                = var.vm_name
+resource "azurerm_network_interface" "example_nic" {
+  for_each            = var.network_interfaces
+  name                = each.value.name
   location            = var.location
   resource_group_name = var.resource_group_name
-  zone                = var.zone
-
-  network_interfaces = {
-    primary_nic = {
-      name = var.nic_name
-      ip_configurations = {
-        primary_ipconfig = {
-          name                          = "primary"
-          private_ip_subnet_resource_id = var.subnet_id
-          create_public_ip_address      = true
-        }
-      }
-    }
+  
+  ip_configuration {
+    name                          = each.value.ip_configurations.ipconfig1.name
+    subnet_id                     = each.value.ip_configurations.ipconfig1.private_ip_subnet_resource_id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = try(each.value.ip_configurations.ipconfig1.public_ip_address_id, null)
   }
 
-  admin_username        = var.admin_username
-  admin_ssh_keys        = [{ public_key = var.ssh_public_key, username = var.admin_username }]
-  disable_password_authentication = true
-  vm_size               = var.vm_size
-
-  tags = var.tags
+  depends_on = [
+    var.network_interfaces
+  ]
 }
+
+resource "azurerm_linux_virtual_machine" "this" {
+  name                            = var.vm_name
+  location                        = var.location
+  resource_group_name             = var.resource_group_name
+  size                            = var.size
+  admin_username                  = var.admin_username
+  disable_password_authentication = true
+  network_interface_ids           = [azurerm_network_interface.example_nic["nic1"].id]
+  
+  admin_ssh_key {
+    username   = var.admin_username
+    public_key = var.admin_ssh_key
+  }
+  
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = var.source_image_reference.publisher
+    offer     = var.source_image_reference.offer
+    sku       = var.source_image_reference.sku
+    version   = var.source_image_reference.version
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
