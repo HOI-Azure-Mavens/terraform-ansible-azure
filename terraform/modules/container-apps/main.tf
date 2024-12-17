@@ -1,8 +1,14 @@
+# Resource Group for Container Apps
+resource "azurerm_resource_group" "container_rg" {
+  name     = var.resource_group_name
+  location = var.location
+}
+
 # Log Analytics Workspace for Container Apps Environment
 resource "azurerm_log_analytics_workspace" "laws" {
   name                = "${var.container_app_environment_name}-logs"
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.container_rg.name
   sku                 = "PerGB2018"
   retention_in_days   = 30
 }
@@ -11,7 +17,7 @@ resource "azurerm_log_analytics_workspace" "laws" {
 resource "azurerm_container_app_environment" "container_env" {
   name                       = var.container_app_environment_name
   location                   = var.location
-  resource_group_name        = var.resource_group_name
+  resource_group_name        = azurerm_resource_group.container_rg.name
   log_analytics_workspace_id = azurerm_log_analytics_workspace.laws.id
 }
 
@@ -21,8 +27,8 @@ resource "azurerm_container_app" "container_app" {
 
   name                         = each.value.name
   container_app_environment_id = azurerm_container_app_environment.container_env.id
-  resource_group_name          = var.resource_group_name
-  revision_mode                = each.value.revision_mode # REQUIRED
+  resource_group_name          = azurerm_resource_group.container_rg.name
+  revision_mode                = each.value.revision_mode
 
   tags = lookup(each.value, "tags", {})
 
@@ -59,6 +65,9 @@ resource "azurerm_container_app" "container_app" {
     }
   }
 }
+
+
+
 
 
 
