@@ -1,0 +1,12 @@
+name: Test Terraform Workflow for Ubuntu VM
+
+on:
+  workflow_dispatch: # Allows manual trigger via GitHub CLI or UI
+
+jobs:
+  test-terraform:
+    name: Test Terraform Ubuntu Base VM
+    uses: ./.github/workflows/terraform-infra-set-up.yaml
+    with:
+      terraform-dir: terraform/ubuntu-base-os-vm
+      terraform-version: 1.5.4
