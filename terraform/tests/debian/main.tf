@@ -2,8 +2,14 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.0"
+      version = "~> 3.0"
     }
+  }
+  backend "azurerm" {
+    resource_group_name  = "rg-ansible-terraform-backend"
+    storage_account_name = "stgterraform1733689608"
+    container_name      = "tfstate"
+    key                 = "vm.tfstate"
   }
 }
 
@@ -17,13 +23,11 @@ module "vm" {
   vm_name             = "debian-vm"
   location            = "eastus"
   resource_group_name = "debian-vm-rg"
-  vm_size             = "Standard_B1s"
-  admin_username      = "azureuser"
-  ssh_public_key_path = "~/.ssh/id_rsa.pub"
-  os_offer            = "Debian"
-  os_sku              = "10-gen2"
-  os_version          = "latest"
+  vm_size            = "Standard_B1s"
+  admin_username     = "azureuser"
 }
+
+
 
 
 
