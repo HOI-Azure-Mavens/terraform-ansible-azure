@@ -1,9 +1,30 @@
-variable "vm_name" {}
-variable "location" {}
-variable "resource_group_name" {}
-variable "vm_size" {}
-variable "admin_username" {}
-variable "ssh_public_key_path" {}
-variable "os_offer" {}
-variable "os_sku" {}
-variable "os_version" {}
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
+}
+
+variable "location" {
+  description = "Azure region for resources"
+  type        = string
+}
+
+variable "vm_name" {
+  description = "Name of the virtual machine"
+  type        = string
+}
+
+variable "vm_size" {
+  description = "Size of the virtual machine"
+  type        = string
+  default     = "Standard_B1s"
+}
+
+variable "admin_username" {
+  description = "Admin username for the VM"
+  type        = string
+}
+
+
+
+
+
